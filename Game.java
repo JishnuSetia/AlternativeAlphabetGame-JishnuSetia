@@ -5,13 +5,24 @@ import java.awt.event.*;
 import java.awt.image.*;
 import java.io.*;
 public class Game{
+    //Game Base
     JFrame window;
     Container con;
+    Color mainColor = new Color(0,78,143);//128,222,255
+    Font font = new Font("Avenir", Font.PLAIN, 60);
+
+    //title screen
     JPanel titleImagePanel1, titleTextPanel, titleImagePanel2, startButtonPanel, exitButtonPanel,howToPlayPanel;
     JLabel titleImageLabel1, titleTextLabel, titleImageLabel2;
     JButton startButton, exitButton, howToPlayButton;
-    Color mainColor = new Color(0,78,143);//128,222,255
-    Font font = new Font("Avenir", Font.PLAIN, 60);
+
+    //how to play screen
+
+    //Players Screen
+
+    //Game Screen
+
+
     public static void main(String[] args) {
         new Game();
     }
@@ -85,7 +96,7 @@ public class Game{
         exitButton.setForeground(mainColor);
         exitButton.setBackground(Color.white);
         exitButton.addActionListener((ActionEvent e) -> {
-            System.out.println("Exit");
+            System.exit(0);
         });
         exitButtonPanel.add(exitButton);
         con.add(exitButtonPanel);
@@ -100,6 +111,14 @@ public class Game{
         window.setLayout(null);
         window.setResizable(false);
         con = window.getContentPane();
+    }
+    private void hide(){
+        titleImagePanel1.setVisible(false);
+        titleTextPanel.setVisible(false);
+        titleImagePanel2.setVisible(false);
+        startButtonPanel.setVisible(false);
+        exitButtonPanel.setVisible(false);
+        howToPlayPanel.setVisible(false);
     }
     private ImageIcon resizeImage(String imagePath, int width, int height) {
         try {
