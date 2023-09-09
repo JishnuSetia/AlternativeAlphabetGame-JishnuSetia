@@ -15,17 +15,26 @@ public class Game{
     JPanel side1Panel, side2Panel, topPanel, bottomPanel;
     JLabel side1, side2, top, bottom;
 
-    //title screen
+    //Title Screen
     JPanel titleImagePanel, whiteLine, startButtonPanel, exitButtonPanel,howToPlayPanel, creditsPanel;
     JLabel titleImageLabel;
     JButton startButton, exitButton, howToPlayButton, creditsButton;
 
+    //Credits Screen
+    JPanel creditsTitlePanel, creditsTextPanel, creditsBackButtonPanel;
+    JLabel creditsTitle;
+    JTextArea creditsText;
+    JButton creditsBackButton;
+
     //How to Play Screen
+    JPanel htpTitlePanel, htpTextPanel, htpBackButtonPanel;
+    JLabel htpTitle;
+    JTextArea htpText;
+    JButton htpBackButton;
 
     //Players Screen
 
     //Game Screen
-
 
     public static void main(String[] args) {
         new Game();
@@ -62,7 +71,8 @@ public class Game{
         startButton.setForeground(mainColor);
         startButton.setBackground(Color.white);
         startButton.addActionListener((ActionEvent e) -> {
-            System.out.println("Start");
+            hideTitleScreen();
+            playersScreen();
         });
         startButtonPanel.add(startButton);
         con.add(startButtonPanel);
@@ -75,7 +85,8 @@ public class Game{
         howToPlayButton.setForeground(mainColor);
         howToPlayButton.setBackground(Color.white);
         howToPlayButton.addActionListener((ActionEvent e) -> {
-            System.out.println("How to Play");
+            hideTitleScreen();
+            howToPlayScreen();
         });
         howToPlayPanel.add(howToPlayButton);
         con.add(howToPlayPanel);
@@ -88,7 +99,8 @@ public class Game{
         creditsButton.setForeground(mainColor);
         creditsButton.setBackground(Color.white);
         creditsButton.addActionListener((ActionEvent e) -> {
-            System.out.println("Credits");
+            hideTitleScreen();
+            creditsScreen();
         });
         creditsPanel.add(creditsButton);
         con.add(creditsPanel);
@@ -105,6 +117,61 @@ public class Game{
         });
         exitButtonPanel.add(exitButton);
         con.add(exitButtonPanel);
+    }
+    private void hideTitleScreen(){
+        titleImagePanel.setVisible(false);
+        whiteLine.setVisible(false);
+        startButtonPanel.setVisible(false);
+        exitButtonPanel.setVisible(false);
+        howToPlayPanel.setVisible(false);
+        creditsPanel.setVisible(false);
+    }
+    private void hideCreditsScreen(){
+        creditsTitlePanel.setVisible(false);
+        creditsTextPanel.setVisible(false);
+        creditsBackButtonPanel.setVisible(false);
+    }
+    private void creditsScreen(){
+        //content coordinates range from (140, 170) to (750, 500)
+        creditsTitlePanel = new JPanel();
+        creditsTitlePanel.setBounds(140, 170, 700, 100);
+        creditsTitlePanel.setBackground(mainColor);
+        creditsTitle = new JLabel("Credits");
+        creditsTitle.setFont(font);
+        creditsTitle.setForeground(Color.white);
+        creditsTitlePanel.add(creditsTitle);
+        con.add(creditsTitlePanel);
+
+        creditsTextPanel = new JPanel();
+        creditsTextPanel.setBounds(140, 290, 700, 200);
+        creditsTextPanel.setBackground(mainColor);
+        creditsText = new JTextArea("Game Creator - GEMS Education\n\nDeveloper - Jishnu Setia\n\nIdeas - Prasanna Adithya Balagopal and Archit Lakhani");
+        creditsText.setBackground(mainColor);
+        creditsText.setEditable(false);
+        creditsText.setFont(font.deriveFont(28f));
+        creditsText.setForeground(Color.white);
+        creditsTextPanel.add(creditsText);
+        con.add(creditsTextPanel);
+
+        creditsBackButtonPanel = new JPanel();
+        creditsBackButtonPanel.setBounds(140,500,700,200);
+        creditsBackButtonPanel.setBackground(mainColor);
+        creditsBackButton=new JButton("<- Back");
+        creditsBackButton.setFont(font.deriveFont(35f));
+        creditsBackButton.setForeground(mainColor);
+        creditsBackButton.setBackground(Color.white);
+        creditsBackButton.addActionListener((ActionEvent e) -> {
+            hideCreditsScreen();
+            titleScreen();
+        });
+        creditsBackButtonPanel.add(creditsBackButton);
+        con.add(creditsBackButtonPanel);
+    }
+    private void howToPlayScreen(){
+        //content coordinates range from (140, 170) to (750, 500)
+    }
+    private void playersScreen(){
+        //content coordinates range from (140, 170) to (750, 500)
     }
     private void createWindow(){
         window = new JFrame("Alternative Alphabet");
