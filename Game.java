@@ -13,9 +13,9 @@ public class Game{
     String[] actionCardPath={"res/Alternative.png", "res/DEFINE.png", "res/draw.png", "res/question.png", "res/reflect.png"};
     String[] wordCardPath={"res/A.png","res/B.png","res/.png","res/C.png","res/D.png","res/E.png","res/F.png","res/G.png","res/H.png","res/I.png","res/J.png","res/K.png","res/L.png","res/M.png","res/N.png","res/O.png","res/P.png","res/Q.png","res/R.png","res/S.png","res/T.png","res/U.png","res/V.png","res/W.png","res/X.png","res/Y.png","res/Z.png"};
     String[] players = {"Player 1, Player 2, Player 3, Player 4", "Player 5","Player 6"};
-    int[] points = new int[6];
+    int[] points = {0,0,0,0,0,0};
     int playerCount=0;
-    int currentPlayer = 0;
+    int currentPlayer = 1;
 
     //Borders
     JPanel side1Panel, side2Panel, topPanel, bottomPanel;
@@ -39,11 +39,16 @@ public class Game{
     JButton htpBackButton;
 
     //Players Screen
-    JPanel playerTitlePanel, player2Panel,player3Panel,player4Panel,player5Panel,player6Panel;
+    JPanel playerTitlePanel, player2Panel,player3Panel,player4Panel,player5Panel,player6Panel, playersBackButtonPanel;
     JLabel playerTitle;
-    JButton player2, player3, player4, player5, player6;
+    JButton player2, player3, player4, player5, player6, playersBackButton;
 
     //Game Screen
+    JPanel currentPlayerPanel, doneButtonPanel, forfeitPanel, actionCardPanel, wordCardPanel;
+
+    //Score Board
+
+    //End Screen
 
     public static void main(String[] args) {
         new Game();
@@ -230,7 +235,7 @@ public class Game{
         con.add(playerTitlePanel);
 
         player2Panel = new JPanel();
-        player2Panel.setBounds(200,300, 100,100);
+        player2Panel.setBounds(200,250, 100,100);
         player2Panel.setBackground(mainColor);
         player2 = new JButton("2");
         player2.setBackground(Color.white);
@@ -239,12 +244,13 @@ public class Game{
         player2.addActionListener((ActionEvent e) -> {
             playerCount=2;
             hidePlayerScreen();
+            gameScreen();
         });
         player2Panel.add(player2);
         con.add(player2Panel);
 
         player3Panel = new JPanel();
-        player3Panel.setBounds(430,300, 100,100);
+        player3Panel.setBounds(430,250, 100,100);
         player3Panel.setBackground(mainColor);
         player3 = new JButton("3");
         player3.setBackground(Color.white);
@@ -253,12 +259,13 @@ public class Game{
         player3.addActionListener((ActionEvent e) -> {
             playerCount=3;
             hidePlayerScreen();
+            gameScreen();
         });
         player3Panel.add(player3);
         con.add(player3Panel);
 
         player4Panel = new JPanel();
-        player4Panel.setBounds(660,300, 100,100);
+        player4Panel.setBounds(660,250, 100,100);
         player4Panel.setBackground(mainColor);
         player4 = new JButton("4");
         player4.setBackground(Color.white);
@@ -267,12 +274,13 @@ public class Game{
         player4.addActionListener((ActionEvent e) -> {
             playerCount=4;
             hidePlayerScreen();
+            gameScreen();
         });
         player4Panel.add(player4);
         con.add(player4Panel);
 
         player5Panel = new JPanel();
-        player5Panel.setBounds(320,450, 100,100);
+        player5Panel.setBounds(320,370, 100,100);
         player5Panel.setBackground(mainColor);
         player5 = new JButton("5");
         player5.setBackground(Color.white);
@@ -281,12 +289,13 @@ public class Game{
         player5.addActionListener((ActionEvent e) -> {
             playerCount=5;
             hidePlayerScreen();
+            gameScreen();
         });
         player5Panel.add(player5);
         con.add(player5Panel);
 
         player6Panel = new JPanel();
-        player6Panel.setBounds(550,450, 100,100);
+        player6Panel.setBounds(550,370, 100,100);
         player6Panel.setBackground(mainColor);
         player6 = new JButton("6");
         player6.setBackground(Color.white);
@@ -295,9 +304,24 @@ public class Game{
         player6.addActionListener((ActionEvent e) -> {
             playerCount=6;
             hidePlayerScreen();
+            gameScreen();
         });
         player6Panel.add(player6);
         con.add(player6Panel);
+
+        playersBackButtonPanel = new JPanel();
+        playersBackButtonPanel.setBounds(140,500,700,100);
+        playersBackButtonPanel.setBackground(mainColor);
+        playersBackButton = new JButton("<- Back");
+        playersBackButton.setBackground(Color.white);
+        playersBackButton.setFont(font.deriveFont(30f));
+        playersBackButton.setForeground(mainColor);
+        playersBackButton.addActionListener((ActionEvent e) -> {
+            hidePlayerScreen();
+            titleScreen();
+        });
+        playersBackButtonPanel.add(playersBackButton);
+        con.add(playersBackButtonPanel);
     }
     private void hidePlayerScreen(){
         playerTitlePanel.setVisible(false);
@@ -306,6 +330,10 @@ public class Game{
         player4Panel.setVisible(false);
         player5Panel.setVisible(false);
         player6Panel.setVisible(false);
+        playersBackButtonPanel.setVisible(false);
+    }
+    private void gameScreen(){
+
     }
     private void createWindow(){
         window = new JFrame("Alternative Alphabet");
@@ -364,4 +392,11 @@ public class Game{
         }
         return null;
     }
+    // private void reset(){
+    //     points = null;
+    //     int[] arr = {0,0,0,0,0,0};
+    //     points = arr.clone();
+    //     playerCount=0;
+    //     currentPlayer = 1;
+    // }
 }
