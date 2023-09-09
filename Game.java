@@ -169,6 +169,45 @@ public class Game{
     }
     private void howToPlayScreen(){
         //content coordinates range from (140, 170) to (750, 500)
+        htpTitlePanel = new JPanel();
+        htpTitlePanel.setBounds(140, 170, 700, 100);
+        htpTitlePanel.setBackground(mainColor);
+        htpTitle = new JLabel("How to Play");
+        htpTitle.setFont(font);
+        htpTitle.setForeground(Color.white);
+        htpTitlePanel.add(htpTitle);
+        con.add(htpTitlePanel);
+
+        htpTextPanel = new JPanel();
+        htpTextPanel.setBounds(140,290,700,200);
+        htpTextPanel.setBackground(mainColor);
+        String text = "In this game, players get 1 random action card and 1 \nrandom word card. They must complete the action on the card \nto get points. The player with the most points wins";
+        htpText=new JTextArea(text);
+        htpText.setBackground(mainColor);
+        htpText.setFont(font.deriveFont(25f));
+        htpText.setForeground(Color.white);
+        htpText.setEditable(false);
+        htpTextPanel.add(htpText);
+        con.add(htpTextPanel);
+        
+        htpBackButtonPanel = new JPanel();
+        htpBackButtonPanel.setBounds(140,500,700,200);
+        htpBackButtonPanel.setBackground(mainColor);
+        htpBackButton = new JButton("<- Back");
+        htpBackButton.setFont(font.deriveFont(35f));
+        htpBackButton.setForeground(mainColor);
+        htpBackButton.setBackground(Color.white);
+        htpBackButton.addActionListener((ActionEvent e) -> {
+            hideHTPScreen();
+            titleScreen();
+        });
+        htpBackButtonPanel.add(htpBackButton);
+        con.add(htpBackButtonPanel);
+    }
+    private void hideHTPScreen(){
+        htpTitlePanel.setVisible(false);
+        htpTextPanel.setVisible(false);
+        htpBackButtonPanel.setVisible(false);;
     }
     private void playersScreen(){
         //content coordinates range from (140, 170) to (750, 500)
