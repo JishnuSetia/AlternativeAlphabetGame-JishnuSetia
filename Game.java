@@ -10,7 +10,13 @@ public class Game{
     Container con;
     Color mainColor = new Color(0,78,143);//128,222,255
     Font font = new Font("Avenir", Font.PLAIN, 60);
-    
+    String[] actionCardPath={"res/Alternative.png", "res/DEFINE.png", "res/draw.png", "res/question.png", "res/reflect.png"};
+    String[] wordCardPath={"res/A.png","res/B.png","res/.png","res/C.png","res/D.png","res/E.png","res/F.png","res/G.png","res/H.png","res/I.png","res/J.png","res/K.png","res/L.png","res/M.png","res/N.png","res/O.png","res/P.png","res/Q.png","res/R.png","res/S.png","res/T.png","res/U.png","res/V.png","res/W.png","res/X.png","res/Y.png","res/Z.png"};
+    String[] players = {"Player 1, Player 2, Player 3, Player 4", "Player 5","Player 6"};
+    int[] points = new int[6];
+    int playerCount=0;
+    int currentPlayer = 0;
+
     //Borders
     JPanel side1Panel, side2Panel, topPanel, bottomPanel;
     JLabel side1, side2, top, bottom;
@@ -33,6 +39,9 @@ public class Game{
     JButton htpBackButton;
 
     //Players Screen
+    JPanel playerTitlePanel, player2Panel,player3Panel,player4Panel,player5Panel,player6Panel;
+    JLabel playerTitle;
+    JButton player2, player3, player4, player5, player6;
 
     //Game Screen
 
@@ -211,6 +220,7 @@ public class Game{
     }
     private void playersScreen(){
         //content coordinates range from (140, 170) to (750, 500)
+        
     }
     private void createWindow(){
         window = new JFrame("Alternative Alphabet");
