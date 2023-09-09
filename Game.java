@@ -220,7 +220,92 @@ public class Game{
     }
     private void playersScreen(){
         //content coordinates range from (140, 170) to (750, 500)
-        
+        playerTitlePanel = new JPanel();
+        playerTitlePanel.setBounds(140, 170, 700, 50);
+        playerTitlePanel.setBackground(mainColor);
+        playerTitle = new JLabel("Select Number of Players");
+        playerTitle.setFont(font.deriveFont(35f));
+        playerTitle.setForeground(Color.white);
+        playerTitlePanel.add(playerTitle);
+        con.add(playerTitlePanel);
+
+        player2Panel = new JPanel();
+        player2Panel.setBounds(200,300, 100,100);
+        player2Panel.setBackground(mainColor);
+        player2 = new JButton("2");
+        player2.setBackground(Color.white);
+        player2.setForeground(mainColor);
+        player2.setFont(font);
+        player2.addActionListener((ActionEvent e) -> {
+            playerCount=2;
+            hidePlayerScreen();
+        });
+        player2Panel.add(player2);
+        con.add(player2Panel);
+
+        player3Panel = new JPanel();
+        player3Panel.setBounds(430,300, 100,100);
+        player3Panel.setBackground(mainColor);
+        player3 = new JButton("3");
+        player3.setBackground(Color.white);
+        player3.setForeground(mainColor);
+        player3.setFont(font);
+        player3.addActionListener((ActionEvent e) -> {
+            playerCount=3;
+            hidePlayerScreen();
+        });
+        player3Panel.add(player3);
+        con.add(player3Panel);
+
+        player4Panel = new JPanel();
+        player4Panel.setBounds(660,300, 100,100);
+        player4Panel.setBackground(mainColor);
+        player4 = new JButton("4");
+        player4.setBackground(Color.white);
+        player4.setForeground(mainColor);
+        player4.setFont(font);
+        player4.addActionListener((ActionEvent e) -> {
+            playerCount=4;
+            hidePlayerScreen();
+        });
+        player4Panel.add(player4);
+        con.add(player4Panel);
+
+        player5Panel = new JPanel();
+        player5Panel.setBounds(320,450, 100,100);
+        player5Panel.setBackground(mainColor);
+        player5 = new JButton("5");
+        player5.setBackground(Color.white);
+        player5.setFont(font);
+        player5.setForeground(mainColor);
+        player5.addActionListener((ActionEvent e) -> {
+            playerCount=5;
+            hidePlayerScreen();
+        });
+        player5Panel.add(player5);
+        con.add(player5Panel);
+
+        player6Panel = new JPanel();
+        player6Panel.setBounds(550,450, 100,100);
+        player6Panel.setBackground(mainColor);
+        player6 = new JButton("6");
+        player6.setBackground(Color.white);
+        player6.setFont(font);
+        player6.setForeground(mainColor);
+        player6.addActionListener((ActionEvent e) -> {
+            playerCount=6;
+            hidePlayerScreen();
+        });
+        player6Panel.add(player6);
+        con.add(player6Panel);
+    }
+    private void hidePlayerScreen(){
+        playerTitlePanel.setVisible(false);
+        player2Panel.setVisible(false);
+        player3Panel.setVisible(false);
+        player4Panel.setVisible(false);
+        player5Panel.setVisible(false);
+        player6Panel.setVisible(false);
     }
     private void createWindow(){
         window = new JFrame("Alternative Alphabet");
