@@ -1,4 +1,4 @@
-# AlternativeAlphabetGame-JishnuSetia
+# Alternative Alphabet Game
 
 This game is a gamified version of the original game. This game aims to promote mental health among young adults.
 
