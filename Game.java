@@ -11,8 +11,8 @@ public class Game{
     Color mainColor = new Color(0,78,143);//128,222,255
     Font font = new Font("Avenir", Font.PLAIN, 60);
     String[] actionCardPath={"res/Alternative.png", "res/DEFINE.png", "res/draw.png", "res/question.png", "res/reflect.png"};
-    String[] wordCardPath={"res/A.png","res/B.png","res/.png","res/C.png","res/D.png","res/E.png","res/F.png","res/G.png","res/H.png","res/I.png","res/J.png","res/K.png","res/L.png","res/M.png","res/N.png","res/O.png","res/P.png","res/Q.png","res/R.png","res/S.png","res/T.png","res/U.png","res/V.png","res/W.png","res/X.png","res/Y.png","res/Z.png"};
-    String[] players = {"Player 1, Player 2, Player 3, Player 4", "Player 5","Player 6"};
+    String[] wordCardPath={"res/A.png","res/B.png","res/C.png","res/D.png","res/E.png","res/F.png","res/G.png","res/H.png","res/I.png","res/J.png","res/K.png","res/L.png","res/M.png","res/N.png","res/O.png","res/P.png","res/Q.png","res/R.png","res/S.png","res/T.png","res/U.png","res/V.png","res/W.png","res/X.png","res/Y.png","res/Z.png"};
+    String[] players = {"Player 1", "Player 2", "Player 3", "Player 4", "Player 5","Player 6"};
     int[] points = {0,0,0,0,0,0};
     int playerCount=0;
     int currentPlayer = 1;
@@ -45,10 +45,19 @@ public class Game{
 
     //Game Screen
     JPanel currentPlayerPanel, doneButtonPanel, forfeitPanel, actionCardPanel, wordCardPanel;
+    JLabel currentPlayerL, actionCard, wordCard;
+    JButton doneButton, forfeitButton;
 
     //Score Board
+    JPanel scoreTitlePanel, scoreBoardPanel, sbContinuePanel, sbEndGamePanel;
+    JLabel scoreTitle;
+    JTextArea scoreBoard;
+    JButton sbContinueButton, sbEndGameButton;
 
     //End Screen
+    JPanel endTitlePanel, newGamePanel, exitPanel;
+    JLabel endTitle;
+    JButton newGameButton, endExitButton;
 
     public static void main(String[] args) {
         new Game();
@@ -333,7 +342,183 @@ public class Game{
         playersBackButtonPanel.setVisible(false);
     }
     private void gameScreen(){
+        //content coordinates range from (140, 170) to (750, 500)
+        currentPlayerPanel = new JPanel();
+        currentPlayerPanel.setBounds(140,170,700,50);
+        currentPlayerPanel.setBackground(mainColor);
+        currentPlayerL = new JLabel("It's "+players[currentPlayer-1]+"'s turn");
+        currentPlayerL.setFont(font.deriveFont(35f));
+        currentPlayerL.setForeground(Color.white);
+        currentPlayerPanel.add(currentPlayerL);
+        con.add(currentPlayerPanel);
 
+        actionCardPanel = new JPanel();
+        actionCardPanel.setBounds(140,270,193,300);
+        actionCardPanel.setBackground(mainColor);//new Color((int) (Math.random() * 256), (int) (Math.random() * 256), (int) (Math.random() * 256))
+        actionCard = new JLabel();
+        ImageIcon icon = resizeImage(actionCardPath[(int) (Math.random() * 5)], 193, 310);
+        actionCard.setIcon(icon);
+        actionCardPanel.add(actionCard);
+        con.add(actionCardPanel);
+
+        wordCardPanel = new JPanel();
+        wordCardPanel.setBounds(400,270,193,300);
+        wordCardPanel.setBackground(mainColor);
+        wordCard = new JLabel();
+        icon = resizeImage(wordCardPath[(int) (Math.random() * 26)], 193, 310);
+        wordCard.setIcon(icon);
+        wordCardPanel.add(wordCard);
+        con.add(wordCardPanel);
+
+        doneButtonPanel = new JPanel();
+        doneButtonPanel.setBounds(700, 300, 150, 100);
+        doneButtonPanel.setBackground(mainColor);
+        doneButton = new JButton("Done");
+        doneButton.setBackground(Color.white);
+        doneButton.setForeground(mainColor);
+        doneButton.setFont(font.deriveFont(35f));
+        doneButton.addActionListener((ActionEvent e) -> {
+            points[currentPlayer-1]+=10;
+            hideGameScreen();
+            if(currentPlayer!=playerCount){
+                currentPlayer++;
+            }else{
+                currentPlayer=1;
+            }
+            scoreBoard();
+        });
+        doneButtonPanel.add(doneButton);
+        con.add(doneButtonPanel);
+
+        forfeitPanel = new JPanel();
+        forfeitPanel.setBounds(700, 400, 150, 100);
+        forfeitPanel.setBackground(mainColor);
+        forfeitButton = new JButton("Forfeit");
+        forfeitButton.setBackground(Color.white);
+        forfeitButton.setForeground(mainColor);
+        forfeitButton.setFont(font.deriveFont(35f));
+        forfeitButton.addActionListener((ActionEvent e) -> {
+            hideGameScreen();
+            if(currentPlayer!=playerCount){
+                currentPlayer++;
+            }else{
+                currentPlayer=1;
+            }
+            scoreBoard();
+        });
+        forfeitPanel.add(forfeitButton);
+        con.add(forfeitPanel);
+    }
+    private void hideGameScreen(){
+        currentPlayerPanel.setVisible(false);
+        doneButtonPanel.setVisible(false);
+        forfeitPanel.setVisible(false);
+        actionCardPanel.setVisible(false);
+        wordCardPanel.setVisible(false);
+    }
+    private void scoreBoard(){
+        //content coordinates range from (140, 170) to (750, 500)
+        scoreTitlePanel = new JPanel();
+        scoreTitlePanel.setBounds(140, 170, 700, 50);
+        scoreTitlePanel.setBackground(mainColor);
+        scoreTitle = new JLabel("Score Board");
+        scoreTitle.setForeground(Color.white);
+        scoreTitle.setFont(font.deriveFont(35f));
+        scoreTitlePanel.add(scoreTitle);
+        con.add(scoreTitlePanel);
+
+        scoreBoardPanel = new JPanel();
+        scoreBoardPanel.setBounds(140, 250,700,250);
+        scoreBoardPanel.setBackground(mainColor);
+        String text = "";
+        for(int i = 1; i<=playerCount;i++){
+            text = text.concat(players[i-1]+" - "+points[i-1]+"\n");
+        }
+        scoreBoard = new JTextArea(text);
+        scoreBoard.setBackground(mainColor);
+        scoreBoard.setForeground(Color.white);
+        scoreBoard.setFont(font.deriveFont(30f));
+        scoreBoard.setEditable(false);
+        scoreBoardPanel.add(scoreBoard);
+        con.add(scoreBoardPanel);
+
+        sbContinuePanel = new JPanel();
+        sbContinuePanel.setBounds(200, 520, 200, 100);
+        sbContinuePanel.setBackground(mainColor);
+        sbContinueButton = new JButton("Continue");
+        sbContinueButton.setBackground(Color.white);
+        sbContinueButton.setForeground(mainColor);
+        sbContinueButton.setFont(font.deriveFont(30f));
+        sbContinueButton.addActionListener((ActionEvent e) -> {
+            hideScoreBoard();
+            gameScreen();
+        });
+        sbContinuePanel.add(sbContinueButton);
+        con.add(sbContinuePanel);
+
+        sbEndGamePanel = new JPanel();
+        sbEndGamePanel.setBounds(600, 520, 150, 100);
+        sbEndGamePanel.setBackground(mainColor);
+        sbEndGameButton = new JButton("End");
+        sbEndGameButton.setBackground(Color.white);
+        sbEndGameButton.setForeground(mainColor);
+        sbEndGameButton.setFont(font.deriveFont(30f));
+        sbEndGameButton.addActionListener((ActionEvent e) -> {
+            hideScoreBoard();
+            endGame();
+        });
+        sbEndGamePanel.add(sbEndGameButton);
+        con.add(sbEndGamePanel);
+    }
+    private void hideScoreBoard(){
+        scoreTitlePanel.setVisible(false);
+        scoreBoardPanel.setVisible(false);
+        sbContinuePanel.setVisible(false);
+        sbEndGamePanel.setVisible(false);
+    }
+    private void endGame(){
+        //content coordinates range from (140, 170) to (750, 500)
+        reset();
+        endTitlePanel = new JPanel();
+        endTitlePanel.setBounds(140, 170, 700, 100);
+        endTitlePanel.setBackground(mainColor);
+        endTitle = new JLabel("Game Over");
+        endTitle.setFont(font);
+        endTitle.setForeground(Color.white);
+        endTitlePanel.add(endTitle);
+        con.add(endTitlePanel);
+
+        newGamePanel = new JPanel();
+        newGamePanel.setBounds(200, 350, 200, 100);
+        newGamePanel.setBackground(mainColor);
+        newGameButton = new JButton("New Game");
+        newGameButton.setBackground(Color.white);
+        newGameButton.setForeground(mainColor);
+        newGameButton.setFont(font.deriveFont(30f));
+        newGameButton.addActionListener((ActionEvent e) -> {
+            hideEndScreen();
+            titleScreen();
+        });
+        newGamePanel.add(newGameButton);
+        con.add(newGamePanel);
+
+        exitPanel = new JPanel();
+        exitPanel.setBounds(650, 350, 200, 100);
+        exitPanel.setBackground(mainColor);
+        endExitButton = new JButton("Exit");
+        endExitButton.setBackground(Color.white);
+        endExitButton.setForeground(mainColor);
+        endExitButton.setFont(font.deriveFont(30f));
+        endExitButton.addActionListener((ActionEvent e) -> {
+            System.exit(0);
+        });
+        exitPanel.add(endExitButton);
+        con.add(exitPanel);
+    }
+    private void hideEndScreen(){
+        endTitlePanel.setVisible(false);
+        newGamePanel.setVisible(false); 
+        exitPanel.setVisible(false);
     }
     private void createWindow(){
         window = new JFrame("Alternative Alphabet");
@@ -392,11 +577,11 @@ public class Game{
         }
         return null;
     }
-    // private void reset(){
-    //     points = null;
-    //     int[] arr = {0,0,0,0,0,0};
-    //     points = arr.clone();
-    //     playerCount=0;
-    //     currentPlayer = 1;
-    // }
+    private void reset(){
+        points = null;
+        int[] arr = {0,0,0,0,0,0};
+        points = arr.clone();
+        playerCount=0;
+        currentPlayer = 1;
+    }
 }
